@@ -1,0 +1,4 @@
+credentials.tfvars
+.terraform.lock.hcl
+.terraform
+
