@@ -3,7 +3,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
 
   agent = 1
 
-  clone   = "ubuntu-cloud"
+  clone   = "Cloud-qemu"
   cores   = 2
   sockets = 1
   cpu     = "host"
