@@ -1,4 +1,4 @@
-credentials.tfvars
+credentials.auto.tfvars
 .terraform.lock.hcl
 .terraform
 terraform*
