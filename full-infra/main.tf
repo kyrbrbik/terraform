@@ -8,7 +8,7 @@ resource "proxmox_vm_qemu" "node" {
   agent = 1
 
   clone   = "Cloud-qemu"
-  cores   = 2
+  cores   = 1
   sockets = 1
   cpu     = "host"
   memory  = 2048
