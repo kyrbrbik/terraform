@@ -13,5 +13,10 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
     bridge = "vmbr0"
     model  = "virtio"
   }
+  disk {
+    storage = "local-lvm"
+    type = "virtio"
+    size = "10G"
+  }
   os_type = "cloud-init"
 }
