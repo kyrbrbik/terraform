@@ -3,3 +3,7 @@ name_map = {
 	"Master-2" = "202"
 	"Master-3" = "203"
 }
+
+cores = 1
+
+memory = 2048

@@ -8,10 +8,10 @@ resource "proxmox_vm_qemu" "node" {
   agent = 1
 
   clone   = "Cloud-qemu"
-  cores   = 1
+  cores   = var.cores
   sockets = 1
   cpu     = "host"
-  memory  = 2048
+  memory  = var.memory
 
   network {
     bridge = "vmbr0"
