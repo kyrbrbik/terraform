@@ -8,7 +8,6 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
   sockets = 1
   cpu     = "host"
   memory  = 2048
-
   network {
     bridge = "vmbr0"
     model  = "virtio"
