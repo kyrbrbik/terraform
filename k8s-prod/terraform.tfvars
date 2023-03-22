@@ -4,6 +4,6 @@ name_map = {
 	"Node-3" = "122"
 }
 
-cores = 1
+cores = 2
 
 memory = 4096
