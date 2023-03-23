@@ -1,9 +1,9 @@
 name_map = {
-	"Node-test-1" = "130"
-	"Node-test-2" = "131"
-	"Node-test-3" = "132"
+	"Node-test-1" = "140"
+	"Node-test-2" = "141"
+	"Node-test-3" = "142"
 }
 
-cores = 1
+cores = 2
 
 memory = 4096
