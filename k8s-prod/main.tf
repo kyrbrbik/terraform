@@ -20,7 +20,7 @@ resource "proxmox_vm_qemu" "master" {
   disk {
     storage = "local-lvm"
     type = "virtio"
-    size = "20G"
+    size = "15G"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
@@ -48,7 +48,7 @@ resource "proxmox_vm_qemu" "worker" {
   disk {
     storage = "local-lvm"
     type = "virtio"
-    size = "15G"
+    size = "20G"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"

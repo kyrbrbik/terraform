@@ -4,7 +4,7 @@ name_map_master = {
 }
 name_map_worker = {
 	"Node-3" = "122"
-	"Node-4" = "133"
+	"Node-4" = "123"
 }
 
 cores_master = 2
