@@ -13,9 +13,9 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
     model  = "virtio"
   }
   disk {
-    storage = "local-lvm"
+    storage = "slow"
     type = "virtio"
-    size = "20G"
+    size = "10G"
   }
   os_type = "cloud-init"
 }
