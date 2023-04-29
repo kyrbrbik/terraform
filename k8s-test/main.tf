@@ -18,7 +18,7 @@ resource "proxmox_vm_qemu" "node" {
     model  = "virtio"
   }
   disk {
-    storage = "local-lvm"
+    storage = "slow"
     type = "virtio"
     size = "20G"
   }
