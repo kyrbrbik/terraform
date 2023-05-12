@@ -13,7 +13,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
     model  = "virtio"
   }
   disk {
-    storage = "slow"
+    storage = "local-lvm"
     type = "virtio"
     size = "10G"
   }
