@@ -4,7 +4,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
   agent = 1
   vmid = 300
   clone   = "Cloud-qemu"
-  cores   = 1
+  cores   = 2
   sockets = 1
   cpu     = "host"
   memory  = 4096
@@ -18,4 +18,5 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
     size = "10G"
   }
   os_type = "cloud-init"
+  ipconfig0 = "ip=192.168.0.25/24,gw=192.168.0.1"
 }
