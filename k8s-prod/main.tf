@@ -18,9 +18,14 @@ resource "proxmox_vm_qemu" "master" {
     model  = "virtio"
   }
   disk {
+	storage = "local-lvm"
+	type = "scsi"
+	size = "2252M"
+  }
+  disk {
     storage = "local-lvm"
     type = "virtio"
-    size = "15G"
+    size = "26828M"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
@@ -46,10 +51,52 @@ resource "proxmox_vm_qemu" "worker" {
     model  = "virtio"
   }
   disk {
+	storage = "local-lvm"
+	type = "scsi"
+	size = "2252M"
+  }
+  disk {
+	storage = "data-slow"
+	type = "scsi"
+	size = "128G"
+  }
+  disk {
     storage = "local-lvm"
     type = "virtio"
-    size = "20G"
+    size = "24780M"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
+}
+
+resource "proxmox_vm_qemu" "worker-n2" {
+  target_node = "pve1"
+  vmid = 124
+  name = "Node-5"
+  onboot = true
+
+  agent = 1
+
+  clone   = "Cloud-qemu-2"
+  cores   = 2
+  sockets = 1
+  cpu     = "host"
+  memory  = var.memory
+
+  network {
+	bridge = "vmbr0"
+	model  = "virtio"
+  }
+  disk {
+	storage = "local-lvm"
+	type = "scsi"
+	size = "20G"
+  }
+  disk {
+	storage = "local-lvm"
+	type = "scsi"
+	size = "64G"
+  }
+  os_type = "cloud-init"
+  ipconfig0 = "ip=192.168.0.124/24,gw=192.168.0.1"
 }

@@ -9,6 +9,6 @@ name_map_worker = {
 
 cores_master = 2
 
-cores_worker = 1
+cores_worker = 2
 
 memory = 4096
