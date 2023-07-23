@@ -29,6 +29,7 @@ resource "proxmox_vm_qemu" "master" {
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
+  sshkeys = file("~/.ssh/id_rsa.pub")
 }
 
 resource "proxmox_vm_qemu" "worker" {
@@ -67,12 +68,14 @@ resource "proxmox_vm_qemu" "worker" {
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
+  sshkeys = file("~/.ssh/id_rsa.pub")
 }
 
 resource "proxmox_vm_qemu" "worker-n2" {
+  for_each = var.name_map_worker_n2
   target_node = "pve1"
-  vmid = 124
-  name = "Node-5"
+  vmid = each.value
+  name = each.key
   onboot = true
 
   agent = 1
@@ -81,7 +84,7 @@ resource "proxmox_vm_qemu" "worker-n2" {
   cores   = 2
   sockets = 1
   cpu     = "host"
-  memory  = var.memory
+  memory  = var.memory_worker_n2
 
   network {
 	bridge = "vmbr0"
@@ -99,4 +102,5 @@ resource "proxmox_vm_qemu" "worker-n2" {
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.124/24,gw=192.168.0.1"
+  sshkeys = file("~/.ssh/id_rsa.pub")
 }
