@@ -7,7 +7,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
   cores   = 1
   sockets = 1
   cpu     = "host"
-  memory  = 4096
+  memory  = 8192
   network {
     bridge = "vmbr0"
     model  = "virtio"
@@ -19,7 +19,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
   }
   disk {
 	storage = "data-slow"
-	type = "scsi"
+	type = "virtio"
 	size = "100G"
 	}
   os_type = "cloud-init"
