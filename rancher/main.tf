@@ -25,7 +25,16 @@ resource "proxmox_vm_qemu" "rancher" {
 	os_type = "cloud-init"
 	ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
 	sshkeys = file("~/.ssh/id_rsa.pub")
+	
+	lifecycle {
+		ignore_changes = [
+			disk,
+			sshkeys,
+			ipconfig0,
+		]
+	}
 }
+	
 
 resource "proxmox_vm_qemu" "loadbalancer" {
 	target_node = "pve"
