@@ -30,6 +30,15 @@ resource "proxmox_vm_qemu" "master" {
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
   sshkeys = file("~/.ssh/id_rsa.pub")
+
+  lifecycle {
+	ignore_changes = [
+	  network,
+	  disk,
+	  ipconfig0,
+	  sshkeys,
+	]
+  }
 }
 
 resource "proxmox_vm_qemu" "worker" {
@@ -69,6 +78,15 @@ resource "proxmox_vm_qemu" "worker" {
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
   sshkeys = file("~/.ssh/id_rsa.pub")
+
+  lifecycle {
+	ignore_changes = [
+	  network,
+	  disk,
+	  ipconfig0,
+	  sshkeys,
+	]
+  }
 }
 
 resource "proxmox_vm_qemu" "worker-n2" {
@@ -81,7 +99,7 @@ resource "proxmox_vm_qemu" "worker-n2" {
   agent = 1
 
   clone   = "Cloud-qemu-2"
-  cores   = 2
+  cores   = 3
   sockets = 1
   cpu     = "host"
   memory  = var.memory_worker_n2
@@ -92,15 +110,24 @@ resource "proxmox_vm_qemu" "worker-n2" {
   }
   disk {
 	storage = "local-lvm"
-	type = "scsi"
+	type = "virtio"
 	size = "20G"
   }
   disk {
-	storage = "local-lvm"
-	type = "scsi"
-	size = "64G"
+	storage = "data-slow"
+	type = "virtio"
+	size = "200G"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.124/24,gw=192.168.0.1"
   sshkeys = file("~/.ssh/id_rsa.pub")
+  
+  lifecycle {
+	ignore_changes = [
+	  network,
+	  disk,
+	  ipconfig0,
+	  sshkeys,
+	]
+  }
 }
