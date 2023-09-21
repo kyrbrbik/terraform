@@ -30,6 +30,7 @@ resource "proxmox_vm_qemu" "master" {
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
   sshkeys = file("~/.ssh/id_rsa.pub")
+  automatic_reboot = false
 
   lifecycle {
 	ignore_changes = [
@@ -78,7 +79,8 @@ resource "proxmox_vm_qemu" "worker" {
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
   sshkeys = file("~/.ssh/id_rsa.pub")
-
+  automatic_reboot = false
+  
   lifecycle {
 	ignore_changes = [
 	  network,
@@ -121,6 +123,7 @@ resource "proxmox_vm_qemu" "worker-n2" {
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.124/24,gw=192.168.0.1"
   sshkeys = file("~/.ssh/id_rsa.pub")
+  automatic_reboot = false
   
   lifecycle {
 	ignore_changes = [
