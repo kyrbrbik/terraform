@@ -7,7 +7,7 @@ resource "proxmox_vm_qemu" "node" {
 
   agent = 1
 
-  clone   = "Cloud-qemu"
+  clone   = "Debian"
   cores   = var.cores
   sockets = 1
   cpu     = "host"
@@ -20,7 +20,7 @@ resource "proxmox_vm_qemu" "node" {
   disk {
     storage = "data-slow"
     type = "virtio"
-    size = "20G"
+    size = "32G"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
