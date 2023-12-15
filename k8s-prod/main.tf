@@ -1,96 +1,3 @@
-resource "proxmox_vm_qemu" "master" {
-  target_node = "pve"
-  for_each = var.name_map_master
-  vmid = each.value
-  name = each.key
-  onboot = true
-
-  agent = 1
-
-  clone   = "Cloud-qemu"
-  cores   = var.cores_master
-  sockets = 1
-  cpu     = "host"
-  memory  = var.memory
-
-  network {
-    bridge = "vmbr0"
-    model  = "virtio"
-  }
-  disk {
-	storage = "local-lvm"
-	type = "scsi"
-	size = "2252M"
-  }
-  disk {
-    storage = "local-lvm"
-    type = "virtio"
-    size = "26828M"
-  }
-  os_type = "cloud-init"
-  ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
-  sshkeys = file("~/.ssh/id_rsa.pub")
-  automatic_reboot = false
-
-  lifecycle {
-	ignore_changes = [
-	  network,
-	  disk,
-	  ipconfig0,
-	  sshkeys,
-	]
-  }
-}
-
-resource "proxmox_vm_qemu" "worker" {
-  target_node = "pve"
-  for_each = var.name_map_worker
-  vmid = each.value
-  name = each.key
-  onboot = true
-
-  agent = 1
-
-  clone   = "Cloud-qemu"
-  cores   = var.cores_worker
-  sockets = 1
-  cpu     = "host"
-  memory  = var.memory
-
-  network {
-    bridge = "vmbr0"
-    model  = "virtio"
-  }
-  disk {
-	storage = "local-lvm"
-	type = "scsi"
-	size = "2252M"
-  }
-  disk {
-	storage = "data-slow"
-	type = "scsi"
-	size = "128G"
-  }
-  disk {
-    storage = "local-lvm"
-    type = "virtio"
-    size = "24780M"
-  }
-  os_type = "cloud-init"
-  ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
-  sshkeys = file("~/.ssh/id_rsa.pub")
-  automatic_reboot = false
-  
-  lifecycle {
-	ignore_changes = [
-	  network,
-	  disk,
-	  ipconfig0,
-	  sshkeys,
-	]
-  }
-}
-
 resource "proxmox_vm_qemu" "worker-n2" {
   for_each = var.name_map_worker_n2
   target_node = "pve1"
@@ -100,7 +7,7 @@ resource "proxmox_vm_qemu" "worker-n2" {
 
   agent = 1
 
-  clone   = "Cloud-qemu-2"
+  clone   = "debian"
   cores   = 3
   sockets = 1
   cpu     = "host"
@@ -113,7 +20,7 @@ resource "proxmox_vm_qemu" "worker-n2" {
   disk {
 	storage = "local-lvm"
 	type = "virtio"
-	size = "20G"
+	size = "32G"
   }
   disk {
 	storage = "data-slow"
@@ -125,6 +32,88 @@ resource "proxmox_vm_qemu" "worker-n2" {
   sshkeys = file("~/.ssh/id_rsa.pub")
   automatic_reboot = false
   
+  lifecycle {
+	ignore_changes = [
+	  network,
+	  disk,
+	  ipconfig0,
+	  sshkeys,
+	]
+  }
+}
+
+resource "proxmox_vm_qemu" "worker_new" {
+  target_node = "pve"
+  for_each = var.name_map_worker_new
+  vmid = each.value
+  name = each.key
+  onboot = true
+
+  agent = 1
+
+  clone   = "Debian"
+  cores   = var.cores_worker
+  sockets = 1
+  cpu     = "host"
+  memory  = var.memory
+
+  network {
+    bridge = "vmbr0"
+    model  = "virtio"
+  }
+  disk {
+    storage = "data-slow"
+    type = "virtio"
+    size = "32G"
+  }
+  disk {
+	storage = "data-slow2"
+	type = "scsi"
+	size = "200G"
+  }
+  os_type = "cloud-init"
+  ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
+  sshkeys = file("~/.ssh/id_rsa.pub")
+  automatic_reboot = false
+  
+  lifecycle {
+	ignore_changes = [
+	  network,
+	  disk,
+	  ipconfig0,
+	  sshkeys,
+	]
+  }
+}
+resource "proxmox_vm_qemu" "master_new" {
+  target_node = "pve"
+  for_each = var.name_map_master_new
+  vmid = each.value
+  name = each.key
+  onboot = true
+
+  agent = 1
+
+  clone   = "Debian"
+  cores   = var.cores_master
+  sockets = 1
+  cpu     = "host"
+  memory  = var.memory
+
+  network {
+    bridge = "vmbr0"
+    model  = "virtio"
+  }
+  disk {
+    storage = "data-slow2"
+    type = "virtio"
+    size = "32G"
+  }
+  os_type = "cloud-init"
+  ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
+  sshkeys = file("~/.ssh/id_rsa.pub")
+  automatic_reboot = false
+
   lifecycle {
 	ignore_changes = [
 	  network,

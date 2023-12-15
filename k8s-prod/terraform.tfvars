@@ -1,9 +1,9 @@
-name_map_master = {
-	"Node-1" = "120"
+name_map_master_new = {
+	"Node-7" = "121"
 }
-name_map_worker = {
-	"Node-3" = "122"
-	"Node-4" = "123"
+name_map_worker_new = {
+	"Node-5" = "125"
+	"Node-6" = "126"
 }
 
 name_map_worker_n2 = {
