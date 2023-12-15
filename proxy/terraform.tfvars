@@ -4,4 +4,4 @@ name_map = {
 
 cores = 1
 
-memory = 4096
+memory = 2048

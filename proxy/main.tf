@@ -7,7 +7,7 @@ resource "proxmox_vm_qemu" "node" {
 
   agent = 1
 
-  clone   = "Cloud-qemu"
+  clone   = "Debian"
   cores   = var.cores
   sockets = 1
   cpu     = "host"
