@@ -18,9 +18,9 @@ resource "proxmox_vm_qemu" "node" {
     model  = "virtio"
   }
   disk {
-    storage = "local-lvm"
+    storage = "data-slow2"
     type = "virtio"
-    size = "15G"
+    size = "32G"
   }
   os_type = "cloud-init"
   ipconfig0 = "ip=192.168.0.${each.value}/24,gw=192.168.0.1"
