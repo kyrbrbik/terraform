@@ -3,7 +3,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
 
   agent = 1
   vmid = 200
-  clone   = "Cloud-qemu"
+  clone   = "Debian"
   cores   = 1
   sockets = 1
   cpu     = "host"
@@ -15,7 +15,7 @@ resource "proxmox_vm_qemu" "ubuntu-server" {
   disk {
     storage = "local-lvm"
     type = "virtio"
-    size = "20G"
+    size = "32G"
   }
   disk {
 	storage = "data-slow"
